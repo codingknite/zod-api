@@ -3,7 +3,6 @@ import {
   transactionWithId,
   withSearchString,
 } from '../../queries/media';
-
 import { queryAllTransactionsGQL } from 'arweavekit/graphql';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -54,5 +53,3 @@ export default async function handler(
     res.status(400).json({ error });
   }
 }
-
-// todo: look into the other arweave kit functions
