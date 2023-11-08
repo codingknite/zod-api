@@ -1,58 +1,59 @@
-import { queryAllTransactionsGQL } from 'arweavekit/graphql';
+import { searchArweaveQuery } from '../../queries/search';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import {
-  documentQuery,
-  permawebQuery,
-  searchDocWithTxnId,
-  searchPageWithTxnId,
-} from '../../queries/search';
+import { queryAllTransactionsGQL } from 'arweavekit/graphql';
 
+type ContentType = 'images' | 'videos' | 'pages';
 interface APIRequestProps {
-  searchString: string;
-  transactionId: string;
-  categoryType: 'pages' | 'documents';
+  text: string;
+  contentType: ContentType;
 }
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    const {
-      categoryType = 'pages',
-      searchString,
-      transactionId = 'DR5vsUD8Af0fHDNO_bWEtpDxuwOqQhKDqo9KvMZdcm4',
-    }: APIRequestProps = req.body;
+    const { text }: APIRequestProps = req.body;
 
-    let queryString;
+    const gateway = 'arweave-search.goldsky.com';
 
-    if (categoryType === 'pages') {
-      if (transactionId) {
-        queryString = searchPageWithTxnId(transactionId);
-      } else if (searchString) {
-        queryString = permawebQuery(searchString);
-      }
-    } else {
-      if (transactionId) {
-        queryString = searchDocWithTxnId(transactionId);
-      } else if (searchString) {
-        queryString = documentQuery(searchString);
-      }
-    }
+    const fetchImages = async () => {
+      const query = searchArweaveQuery(text, 'images');
+      return queryAllTransactionsGQL(query, {
+        gateway,
+        filters: {},
+      });
+    };
 
-    const response = await queryAllTransactionsGQL(queryString, {
-      gateway: 'arweave-search.goldsky.com',
-      filters: {},
-    });
+    const fetchVideos = async () => {
+      const query = searchArweaveQuery(text, 'videos');
+      return queryAllTransactionsGQL(query, {
+        gateway,
+        filters: {},
+      });
+    };
+
+    const fetchPages = async () => {
+      const query = searchArweaveQuery(text, 'pages');
+      return queryAllTransactionsGQL(query, {
+        gateway,
+        filters: {},
+      });
+    };
+
+    const [resImages, resVideos, resPages] = await Promise.all([
+      fetchImages(),
+      fetchVideos(),
+      fetchPages(),
+    ]);
 
     res.status(200).json({
       message: 'SUCCESSFUL',
-      data: response,
-      count: response.length,
-      query: queryString,
+      pages: resPages,
+      videos: resVideos,
+      images: resImages,
     });
   } catch (error) {
     res.status(400).json({ error });
   }
 }
-
-// todo: look into the other arweave kit functions
