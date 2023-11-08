@@ -3540,6 +3540,11 @@ glob@^7.1.3, glob@^7.1.4, glob@^7.2.3:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
+global-tld-list@^1.7.4:
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/global-tld-list/-/global-tld-list-1.7.4.tgz#297b9dd92a360f6dbf2c88ac16f65f9f5601858f"
+  integrity sha512-3EMzHk0HsHGK/3Ab/4Wb3YX+sWdlSXklEtP8lu/7SnCFq6LTvFnS+hLQbcrDyPfFf4TKm1LTXO296++gdpeABQ==
+
 globals@^11.1.0:
   version "11.12.0"
   resolved "https://registry.yarnpkg.com/globals/-/globals-11.12.0.tgz#ab8795338868a0babd8525758018c2a7eb95c42e"
@@ -6128,7 +6133,7 @@ warp-contracts-plugin-deploy@^1.0.9:
     arlocal "^1.1.59"
     node-stdlib-browser "^1.2.0"
 
-warp-contracts@^1.4.17:
+warp-contracts@^1.4.17, warp-contracts@^1.4.22:
   version "1.4.22"
   resolved "https://registry.yarnpkg.com/warp-contracts/-/warp-contracts-1.4.22.tgz#7a2bdf0774a13748be88296ecb8bc843436db9df"
   integrity sha512-MVbPetx1NedMnopFvNcSPo6/tCpnxmd7666VV9Td9G+8hCVXyZkDvP4xFs3bjcSQ6bO2va71dmM99O0XVL8wKA==

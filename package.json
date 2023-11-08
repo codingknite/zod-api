@@ -14,13 +14,15 @@
     "arweavekit": "^1.5.1",
     "bcryptjs": "^2.4.3",
     "date-fns": "^2.30.0",
+    "global-tld-list": "^1.7.4",
     "jsonwebtoken": "^9.0.2",
     "next": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rss-parser": "^3.13.0",
     "styled-components": "^5.3.5",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "warp-contracts": "^1.4.22"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
