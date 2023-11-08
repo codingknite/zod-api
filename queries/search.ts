@@ -1,4 +1,6 @@
-export const permawebQuery = (text: string) => {
+type ContentType = 'images' | 'videos' | 'pages' | 'documents';
+
+export const searchArweaveQuery = (text: string, type: ContentType) => {
   return `
   query {
     transactions(
@@ -8,8 +10,16 @@ export const permawebQuery = (text: string) => {
           values:["${text}"]
         },
         {
-          name:"Type",
-          values:["page"]
+          name:"Content-Type",
+          values:[${
+            type === 'images'
+              ? `"image/png", "image/jpeg"`
+              : type === 'videos'
+              ? `"video/mp4"`
+              : type === 'documents'
+              ? `"application/pdf"`
+              : `"text/html"`
+          }]
         },
         {
           name:"Title",
@@ -34,92 +44,4 @@ export const permawebQuery = (text: string) => {
     }
   }
   `;
-};
-
-export const documentQuery = (text: string) => {
-  return `
-  query {
-    transactions(
-      first:100,
-      tags:[
-        {
-          values:["${text}"]
-        },
-        {
-          name:"Type",
-          values:["document"]
-        },
-        {
-          name:"Title",
-          values:[""]
-        },
-      ]
-    )
-    {
-      edges {
-        node {
-          id
-          tags {
-            name
-            value
-          }
-          data {
-            size
-            type
-          }
-        }
-      }
-    }
-  }
-  `;
-};
-
-export const searchPageWithTxnId = (id: string) => {
-  return `
-  query {
-    transactions(
-      ids:["${id}"],
-    ) 
-    {
-      edges {
-        node {
-          id
-          tags {
-            name
-            value
-          }
-          data {
-            size
-            type
-          }
-        }
-      }
-    }
-  }
-`;
-};
-
-export const searchDocWithTxnId = (id: string) => {
-  return `
-  query {
-    transactions(
-      ids:["${id}"],
-    ) 
-    {
-      edges {
-        node {
-          id
-          tags {
-            name
-            value
-          }
-          data {
-            size
-            type
-          }
-        }
-      }
-    }
-  }
-`;
 };
