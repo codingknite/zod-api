@@ -2,7 +2,7 @@ import { queryGQL } from 'arweavekit/graphql';
 import { transactionWithId } from '../../queries/media';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-// todo use type on axios
+// todo -- axios type checking
 
 interface APIRequestProps {
   transactionId: string;
@@ -37,5 +37,3 @@ export default async function handler(
     res.status(400).json({ error });
   }
 }
-
-// todo: look into the other arweave kit functions
