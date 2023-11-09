@@ -19,7 +19,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const { userId } = req.body;
+    const { userId = 'bf5255e6-29d1-490c-9913-c679658f9380' } = req.body;
     const { key } = JSON.parse(readFileSync('wallet.json', 'utf-8'));
 
     const readState = await readContractState({
@@ -27,16 +27,15 @@ export default async function handler(
       contractTxId: transactionId,
     });
 
-    const { recentSearches }: StateProps =
-      readState.readContract.cachedValue.state;
+    const { history }: StateProps = readState.readContract.cachedValue.state;
 
-    const user = recentSearches.find((item) => item.userId === userId);
+    const user = history.find((item) => item.userId === userId);
 
     if (user) {
       const deleteSearches = await writeContract({
         wallet: key,
         options: {
-          function: 'deleteRecentSearches',
+          function: 'deleteHistory',
           data: {
             userId,
           },
