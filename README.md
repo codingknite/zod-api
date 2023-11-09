@@ -2,7 +2,7 @@
 
 This is the API for the [Zod](https://github.com/codingknite/zod) mobile application. It uses nextjs serverless functions.
 
-##$ Setting Up
+### Setting Up
 
 Fork or Clone the repository to your local machine.
 
@@ -59,7 +59,7 @@ OR
 npm run dev
 ```
 
-### API Route
+### API Routes
 
 All API Routes can be found in `pages/api`. In the browser you can interact with the routes on `localhost:3000/api/<route>`
 
