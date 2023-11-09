@@ -26,6 +26,17 @@ Make sure this file is included in `.gitignore`
 node contract/createWallet.js
 ```
 
+### Deploy Smart Contract
+
+You will need to deploy the smart contract. The contract is in `contract/contract.js` and the deploy script in `contract/deploy.js`. Run the following command to deploy the smart contract
+
+```
+node contract/deploy.js
+```
+
+alternatively you can also run `yarn deploy:contract` or `npm run deploy:contract` if you're using NPM.
+
+
 ### Setup ArLocal
 
 The server is entirely running in local development mode. Make sure you have arlocal running to be able to interact with the arweave network. Run the following command in a separate terminal
